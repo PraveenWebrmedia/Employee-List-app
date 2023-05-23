@@ -3,10 +3,11 @@ import { Grid } from '@material-ui/core';
 import Controls from "../../components/controls/Controls";
 import { useForm, Form } from '../../components/useForm';
 import * as employeeService from "../../services/employeeService";
+import { format } from 'date-fns';
 
 const initialValues = {
     empId: '',
-    hireDate: new Date(),
+    hireDate: format(Date.now(),'dd-MMM-yyyy'),
     departmentId: '',
     EmployeeName: '',
     salary :'',
@@ -60,6 +61,7 @@ const initialValues = {
      }
     },[recordsForEdit])
 
+    console.log(values.hireDate,"2222222222");
     return (
         <Form onSubmit={handleSubmit}>
           <Grid container>
@@ -71,7 +73,6 @@ const initialValues = {
                 onChange={handleInputChange}
                 error={errors.empId}
               />
-
               <Controls.DatePicker
                 name="hireDate"
                 label="Hire Date"

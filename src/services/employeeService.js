@@ -29,7 +29,7 @@ export function insertEmployee(data){
 
 export function UpdateEmployee(data){
   let employees = getAllEmployees()
-  let recordIndex = employees.findIndex(x => x.id == data.empId)
+  let recordIndex = employees.findIndex(x => x.id == data.id)
   employees[recordIndex] = { ...data }
   localStorage.setItem(KEYS.employees, JSON.stringify(employees))
 }

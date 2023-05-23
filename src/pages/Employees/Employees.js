@@ -8,6 +8,8 @@ import { useState } from 'react';
 import AddIcon from "@material-ui/icons/Add";
 import Controls from '../../components/controls/Controls';
 import Popup from '../../components/Popup';
+import Filter from '../../components/Filter';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles(theme => ({
     newButton : {
@@ -25,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 const headcells = [
     {id: "EmployeeId", lable: "Employee ID"},
     {id: "EmployeeName", lable: "Employee Name"},
-    {id: "hired Date", lable: "DOJ"},
+    {id: "hiredDate", lable: "DOJ"},
     {id: "departmentId", lable: "Department"},
     {id: "salary", lable: "Salary"},
     {id: "Designation", lable: "designation"},
@@ -41,7 +43,9 @@ export default function Employees() {
     const { TableContainer, TblHead } = useTable(records,headcells)
     
     const addOrEdit = (employee, resetForm) => {
-      employeeService.insertEmployee(employee)
+ 
+        employeeService.insertEmployee(employee)
+ 
       resetForm()
       setRecordsForEdit(null)
       setOpenPopup(false)
@@ -60,6 +64,7 @@ export default function Employees() {
     return (
       <>
           <PageHeader/>
+          <Filter />
           <Controls.Button 
           text = "Add Employee"
           variant = "contained"
@@ -77,7 +82,7 @@ export default function Employees() {
                 <TableRow key={item.id}>
                   <TableCell>{item.empId}</TableCell>
                   <TableCell>{item.EmployeeName}</TableCell>
-                  <TableCell>{item.hireDate}</TableCell>
+                  <TableCell>{format(new Date(item.hireDate), 'dd-MMM-yyyy')}</TableCell>
                   <TableCell>{item.department}</TableCell> 
                   <TableCell>{item.salary}</TableCell>
                   <TableCell>{item.Designation}</TableCell>
